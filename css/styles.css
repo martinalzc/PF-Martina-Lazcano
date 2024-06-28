@@ -10,8 +10,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     padding: 20px;
+    position: relative;
+    padding-bottom: 8em;
 }
 
 .container {
@@ -83,8 +85,8 @@ button:active {
 
 body footer{
     height: 50px;
-    position: fixed;
-    align-self: flex-end;
+    position: absolute;
+    bottom: 0;
 }
 
 footer p{
