@@ -70,7 +70,7 @@ const updateGame = () => {
 
 const drawGame = () => {
     ctx.clearRect(0, 0, canvasSize, canvasSize);
-    ctx.fillStyle = '#A1DD70';
+    ctx.fillStyle = '#007bff';
     snake.forEach(part => {
         ctx.fillRect(part.x, part.y, gridSize, gridSize);
     });
@@ -185,3 +185,4 @@ function handleTouchMove(evt) {
 }
 
 initGame();
+
