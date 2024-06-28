@@ -1,6 +1,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
+const highScoreElement = document.getElementById('highScore');
 const startButton = document.getElementById('startButton');
 const restartButton = document.getElementById('restartButton');
 
@@ -12,9 +13,12 @@ canvas.height = canvasSize;
 let snake;
 let food;
 let score;
+let highScore = localStorage.getItem('highScore') || 0;
 let direction;
 let gameLoop;
 let changingDirection = false;
+
+highScoreElement.textContent = highScore;
 
 const initGame = () => {
     snake = [
@@ -34,11 +38,16 @@ const initGame = () => {
 
 const startGame = () => {
     direction = { x: gridSize, y: 0 };
-    gameLoop = setInterval(updateGame, 100); // Aumentar el intervalo para reducir la velocidad
+    gameLoop = setInterval(updateGame, 100);
 };
 
 const updateGame = () => {
     if (didGameEnd()) {
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('highScore', highScore);
+            highScoreElement.textContent = highScore;
+        }
         alert('¡Game Over!');
         initGame();
         return;
@@ -132,5 +141,29 @@ const changeDirection = (event) => {
 document.addEventListener('keydown', changeDirection);
 startButton.addEventListener('click', startGame);
 restartButton.addEventListener('click', initGame);
+
+// Mobile controls
+document.addEventListener('touchstart', (event) => {
+    const touchX = event.touches[0].clientX;
+    const touchY = event.touches[0].clientY;
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasCenterX = canvasRect.left + canvasRect.width / 2;
+    const canvasCenterY = canvasRect.top + canvasRect.height / 2;
+
+    if (Math.abs(touchX - canvasCenterX) > Math.abs(touchY - canvasCenterY)) {
+        if (touchX > canvasCenterX && direction.x === 0) {
+            direction = { x: gridSize, y: 0 }; // Right
+        } else if (touchX < canvasCenterX && direction.x === 0) {
+            direction = { x: -gridSize, y: 0 }; // Left
+        }
+    } else {
+        if (touchY > canvasCenterY && direction.y === 0) {
+            direction = { x: 0, y: gridSize }; // Down
+        } else if (touchY < canvasCenterY && direction.y === 0) {
+            direction = { x: 0, y: -gridSize }; // Up
+        }
+    }
+    changingDirection = true;
+});
 
 initGame();
