@@ -79,6 +79,8 @@ const increaseSpeed = () => {
     }
 };
 
+
+
 const drawGame = () => {
     ctx.clearRect(0, 0, canvasSize, canvasSize);
     ctx.fillStyle = '#A1DD70';
