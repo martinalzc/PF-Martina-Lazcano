@@ -143,27 +143,45 @@ startButton.addEventListener('click', startGame);
 restartButton.addEventListener('click', initGame);
 
 // Mobile controls
-document.addEventListener('touchstart', (event) => {
-    const touchX = event.touches[0].clientX;
-    const touchY = event.touches[0].clientY;
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasCenterX = canvasRect.left + canvasRect.width / 2;
-    const canvasCenterY = canvasRect.top + canvasRect.height / 2;
+document.addEventListener('touchstart', handleTouchStart);
+document.addEventListener('touchmove', handleTouchMove);
 
-    if (Math.abs(touchX - canvasCenterX) > Math.abs(touchY - canvasCenterY)) {
-        if (touchX > canvasCenterX && direction.x === 0) {
-            direction = { x: gridSize, y: 0 }; // Right
-        } else if (touchX < canvasCenterX && direction.x === 0) {
-            direction = { x: -gridSize, y: 0 }; // Left
+let xDown = null;
+let yDown = null;
+
+function handleTouchStart(evt) {
+    const firstTouch = evt.touches[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+}
+
+function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+        return;
+    }
+
+    const xUp = evt.touches[0].clientX;
+    const yUp = evt.touches[0].clientY;
+
+    const xDiff = xDown - xUp;
+    const yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+            if (direction.x === 0) direction = { x: -gridSize, y: 0 }; // Left swipe
+        } else {
+            if (direction.x === 0) direction = { x: gridSize, y: 0 }; // Right swipe
         }
     } else {
-        if (touchY > canvasCenterY && direction.y === 0) {
-            direction = { x: 0, y: gridSize }; // Down
-        } else if (touchY < canvasCenterY && direction.y === 0) {
-            direction = { x: 0, y: -gridSize }; // Up
+        if (yDiff > 0) {
+            if (direction.y === 0) direction = { x: 0, y: -gridSize }; // Up swipe
+        } else {
+            if (direction.y === 0) direction = { x: 0, y: gridSize }; // Down swipe
         }
     }
     changingDirection = true;
-});
+    xDown = null;
+    yDown = null;
+}
 
 initGame();
