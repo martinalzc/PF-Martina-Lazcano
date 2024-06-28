@@ -17,6 +17,7 @@ let highScore = localStorage.getItem('highScore') || 0;
 let direction;
 let gameLoop;
 let changingDirection = false;
+let gameSpeed = 150;
 
 highScoreElement.textContent = highScore;
 
@@ -31,6 +32,7 @@ const initGame = () => {
     food = getRandomFoodPosition();
     score = 0;
     direction = { x: 0, y: 0 };
+    gameSpeed = 150;
     scoreElement.textContent = score;
     clearInterval(gameLoop);
     drawGame();
@@ -38,7 +40,7 @@ const initGame = () => {
 
 const startGame = () => {
     direction = { x: gridSize, y: 0 };
-    gameLoop = setInterval(updateGame, 100);
+    gameLoop = setInterval(updateGame, gameSpeed); // Aumentar el intervalo para reducir la velocidad
 };
 
 const updateGame = () => {
@@ -61,11 +63,20 @@ const updateGame = () => {
         score += 10;
         scoreElement.textContent = score;
         food = getRandomFoodPosition();
+        increaseSpeed();
     } else {
         snake.pop();
     }
 
     drawGame();
+};
+
+const increaseSpeed = () => {
+    if (gameSpeed > 50) {
+        gameSpeed -= 5;
+        clearInterval(gameLoop);
+        gameLoop = setInterval(updateGame, gameSpeed);
+    }
 };
 
 const drawGame = () => {
@@ -185,4 +196,5 @@ function handleTouchMove(evt) {
 }
 
 initGame();
+
 
