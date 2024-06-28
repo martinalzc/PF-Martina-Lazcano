@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #f7f9fc;
+    background-color: #19191a;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,9 +15,9 @@ body {
 }
 
 .container {
-    background: #ffffff;
+    background: #9ae;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.329);
     padding: 20px;
     width: 90%;
     max-width: 600px;
@@ -27,13 +27,13 @@ body {
 h1 {
     margin-bottom: 20px;
     font-size: 26px;
-    color: #333333;
+    color: #19191a;
     font-weight: bold;
 }
 
 canvas {
-    border: 2px solid #007bff;
-    background-color: #f1f1f1;
+    border: 2px solid #646fff;
+    background-color: #19191a;
     display: block;
     margin: 0 auto;
     max-width: 100%;
@@ -44,19 +44,50 @@ canvas {
     margin-top: 20px;
 }
 
-button {
-    padding: 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    margin: 5px;
+div p{
+    margin-bottom: 9px;
+    font-weight: bolder;
+    color:#19191a;
+    background-color: #646effa1;
+    padding: 3px 0 3px 0;
+    border-radius: 4px;
 }
 
-button:hover {
-    background-color: #0056b3;
+button {
+    cursor: pointer;
+    font-size: small;
+    font-family: inherit;
+    font-weight: bold;
+    color: #0011ff;
+    background-color: #f8f8fd;
+    padding: 0.8em 2.2em;
+    border-radius: 50em;
+    border: 6px solid #8b93f8;
+    box-shadow: 0px 8px #1f35ff;
+    margin-left: 20px;
+}
+
+@media (max-width: 390px){
+    button{
+        margin-bottom: 20px;
+        margin-left: 0;
+    }
+}
+
+button:active {
+    position: relative;
+    top: 8px;
+    border: 6px solid #646fff;
+    box-shadow: 0px 0px;
+}
+
+body footer{
+    height: 50px;
+    position: fixed;
+    align-self: flex-end;
+}
+
+footer p{
+    font-weight: 500;
+    color: #f1f1f1;
 }

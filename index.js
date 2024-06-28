@@ -61,7 +61,7 @@ const updateGame = () => {
 
 const drawGame = () => {
     ctx.clearRect(0, 0, canvasSize, canvasSize);
-    ctx.fillStyle = '#007bff';
+    ctx.fillStyle = '#A1DD70';
     snake.forEach(part => {
         ctx.fillRect(part.x, part.y, gridSize, gridSize);
     });
